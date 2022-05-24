@@ -87,14 +87,14 @@ namespace PyroElectricsFEM
 
             CMatrix[0, 0] = 0;
             CMatrix[0, 1] = IntegrateGauss((x) => (c*alpha * fi[0](x) * fiDerivatives[0](x)), xi[0], xi[1]);
-            CMatrix[0, 2] = IntegrateGauss((x) => (c * alpha * fi[0](x) * fiDerivatives[1](x)), xi[0], xi[1]);
+            CMatrix[0, 2] = IntegrateGauss((x) => (c * alpha * fi[1](x) * fiDerivatives[0](x)), xi[0], xi[1]);
 
             for (int i = 1; i < N; i++)
             {
                 CMatrix[i, 0] = IntegrateGauss((x) => (c * alpha * fi[i - 1](x) * fiDerivatives[i](x)), xi[i - 1], xi[i]);
                 CMatrix[i, 1] = IntegrateGauss((x) => (c * alpha * fi[i](x) * fiDerivatives[i](x)), xi[i - 1], xi[i]);
                 CMatrix[i, 1] += IntegrateGauss((x) => (c * alpha * fi[i](x) * fiDerivatives[i](x)), xi[i], xi[i + 1]);
-                CMatrix[i, 2] = IntegrateGauss((x) => (c * alpha * fi[i](x) * fiDerivatives[i + 1](x)), xi[i], xi[i + 1]);
+                CMatrix[i, 2] = IntegrateGauss((x) => (c * alpha * fi[i + 1](x) * fiDerivatives[i](x)), xi[i], xi[i + 1]);
 
             }
 
@@ -122,11 +122,11 @@ namespace PyroElectricsFEM
 
             CMatrix[0, 0] = 0;
             CMatrix[0, 1] = IntegrateGauss((x) => (p * fi[0](x) * fiDerivatives[0](x)), xi[0], xi[1]);
-            CMatrix[0, 2] = IntegrateGauss((x) => (p * fi[0](x) * fiDerivatives[1](x)), xi[0], xi[1]);
+            CMatrix[0, 2] = IntegrateGauss((x) => (p * fi[1](x) * fiDerivatives[0](x)), xi[0], xi[1]);
 
             for (int i = 1; i < N; i++)
             {
-                CMatrix[i, 0] = IntegrateGauss((x) => (p * fi[i - 1](x) * fiDerivatives[i](x)), xi[i - 1], xi[i]);
+                CMatrix[i, 0] = IntegrateGauss((x) => (p * fi[i](x) * fiDerivatives[i - 1](x)), xi[i - 1], xi[i]);
                 CMatrix[i, 1] = IntegrateGauss((x) => (p * fi[i](x) * fiDerivatives[i](x)), xi[i - 1], xi[i]);
                 CMatrix[i, 1] += IntegrateGauss((x) => (p * fi[i](x) * fiDerivatives[i](x)), xi[i], xi[i + 1]);
                 CMatrix[i, 2] = IntegrateGauss((x) => (p * fi[i](x) * fiDerivatives[i + 1](x)), xi[i], xi[i + 1]);
